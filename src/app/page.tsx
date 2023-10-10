@@ -1,95 +1,64 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import { Admin, CustomRoutes, Resource, localStorageStore } from 'react-admin';
+import { Route } from 'react-router';
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+import AuthProvider from '@/providers/AuthProvider';
+import categories from '@/components/categories';
+import { Dashboard } from '@/components/dashboard';
+import dataProviderFactory from '@/dataProvider';
+import englishMessages from '@/i18n/en';
+import invoices from '@/components/invoices';
+import { Layout, Login } from '@/layout';
+import { darkTheme, lightTheme } from '@/layout/themes';
+import orders from '@/components/orders';
+import products from '@/components/products';
+import reviews from '@/components/reviews';
+import Segments from '@/components/segments/Segments';
+import visitors from '@/components/visitors';
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+const i18nProvider = polyglotI18nProvider(
+    locale => {
+        if (locale === 'fr') {
+            return import('@/i18n/fr').then(messages => messages.default);
+        }
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        // Always fallback on english
+        return englishMessages;
+    },
+    'en',
+    [
+        { locale: 'en', name: 'English' },
+        { locale: 'fr', name: 'Français' },
+    ]
+);
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+const App = () => (
+    <Admin
+        title=""
+        dataProvider={dataProviderFactory()}
+        store={localStorageStore(undefined, 'ECommerce')}
+        authProvider={AuthProvider}
+        dashboard={Dashboard}
+        loginPage={Login}
+        layout={Layout}
+        i18nProvider={i18nProvider}
+        disableTelemetry
+        theme={lightTheme}
+        darkTheme={darkTheme}
+        defaultTheme="light"
+    >
+        <CustomRoutes>
+            <Route path="/segments" element={<Segments />} />
+        </CustomRoutes>
+        <Resource name="customers" {...visitors} />
+        <Resource name="commands" {...orders} options={{ label: 'Orders' }} />
+        <Resource name="invoices" {...invoices} />
+        <Resource name="products" {...products} />
+        <Resource name="categories" {...categories} />
+        <Resource name="reviews" {...reviews} />
+    </Admin>
+);
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default App;
