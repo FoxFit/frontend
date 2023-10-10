@@ -12,7 +12,7 @@ const Logo = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <g
-                aria-label="~Posters Galore~"
+                aria-label="FoxFit"
                 style={{
                     lineHeight: 1.25,
                 }}

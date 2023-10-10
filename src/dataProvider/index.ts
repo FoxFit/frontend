@@ -3,7 +3,7 @@ import { DataProvider } from 'react-admin';
 export default () => {
     // The fake servers require to generate data, which can take some time.
     // Here we start the server initialization, but we don't wait for it to finish
-    let dataProviderPromise = getDataProvider();
+    const dataProviderPromise = getDataProvider();
 
     // Instead we return this proxy which may be called immediately by react-admin if the
     // user is already signed-in. In this case, we simply wait for the dataProvider promise

@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import LabelIcon from '@mui/icons-material/Label';
 
 import {
     useTranslate,
@@ -14,11 +13,6 @@ import {
 } from 'react-admin';
 
 import visitors from '@/components/visitors';
-import orders from '@/components/orders';
-import invoices from '@/components/invoices';
-import products from '@/components/products';
-import categories from '@/components/categories';
-import reviews from '@/components/reviews';
 import SubMenu from './SubMenu';
 
 type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers';
@@ -51,58 +45,6 @@ const Menu = ({ dense = false }: MenuProps) => {
         >
             <DashboardMenuItem />
             <SubMenu
-                handleToggle={() => handleToggle('menuSales')}
-                isOpen={state.menuSales}
-                name="pos.menu.sales"
-                icon={<orders.icon />}
-                dense={dense}
-            >
-                <MenuItemLink
-                    to="/commands"
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`resources.commands.name`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<orders.icon />}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to="/invoices"
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`resources.invoices.name`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<invoices.icon />}
-                    dense={dense}
-                />
-            </SubMenu>
-            <SubMenu
-                handleToggle={() => handleToggle('menuCatalog')}
-                isOpen={state.menuCatalog}
-                name="pos.menu.catalog"
-                icon={<products.icon />}
-                dense={dense}
-            >
-                <MenuItemLink
-                    to="/products"
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`resources.products.name`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<products.icon />}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to="/categories"
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`resources.categories.name`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<categories.icon />}
-                    dense={dense}
-                />
-            </SubMenu>
-            <SubMenu
                 handleToggle={() => handleToggle('menuCustomers')}
                 isOpen={state.menuCustomers}
                 name="pos.menu.customers"
@@ -118,25 +60,7 @@ const Menu = ({ dense = false }: MenuProps) => {
                     leftIcon={<visitors.icon />}
                     dense={dense}
                 />
-                <MenuItemLink
-                    to="/segments"
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`resources.segments.name`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<LabelIcon />}
-                    dense={dense}
-                />
             </SubMenu>
-            <MenuItemLink
-                to="/reviews"
-                state={{ _scrollToTop: true }}
-                primaryText={translate(`resources.reviews.name`, {
-                    smart_count: 2,
-                })}
-                leftIcon={<reviews.icon />}
-                dense={dense}
-            />
         </Box>
     );
 };

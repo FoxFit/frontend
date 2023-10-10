@@ -1,3 +1,60 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@mui/material",
+            "importNames": [
+              "makeStyles",
+              "createMuiTheme"
+            ],
+            "message": "Please import from @mui/material/styles instead. See https://material-ui.com/guides/minimizing-bundle-size/#option-2 for more information"
+          }
+        ]
+      }
+    ],
+    "no-redeclare": "off",
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowArray": true,
+        "allowArrowFunction": true,
+        "allowAnonymousClass": true,
+        "allowAnonymousFunction": true,
+        "allowCallExpression": true,
+        // The true value here is for backward compatibility
+        "allowNew": true,
+        "allowLiteral": true,
+        "allowObject": true
+      }
+    ],
+    "@typescript-eslint/no-redeclare": [
+      "error"
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      // or "error"
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "react/jsx-key": "off",
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/prefer-as-const": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@next/next/no-img-element": "off"
+  }
 }

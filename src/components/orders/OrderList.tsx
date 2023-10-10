@@ -80,7 +80,7 @@ const TabbedDatagrid = () => {
     );
 
     const handleChange = useCallback(
-        (event: React.ChangeEvent<{}>, value: any) => {
+        (event: React.ChangeEvent<object>, value: any) => {
             setFilters &&
                 setFilters(
                     { ...filterValues, status: value },
