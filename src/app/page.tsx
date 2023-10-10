@@ -7,7 +7,6 @@ import { Admin, Resource, localStorageStore } from 'react-admin';
 import AuthProvider from '@/providers/AuthProvider';
 // import categories from '@/components/categories';
 import { Dashboard } from '@/components/dashboard';
-import dataProviderFactory from '@/dataProvider';
 import englishMessages from '@/i18n/en';
 // import invoices from '@/components/invoices';
 import { Layout, Login } from '@/layout';
@@ -19,6 +18,7 @@ import { darkTheme, lightTheme } from '@/layout/themes';
 import visitors from '@/components/visitors';
 
 import dynamic from "next/dynamic";
+import simpleRestProvider from "ra-data-simple-rest";
 
 const i18nProvider = polyglotI18nProvider(
     locale => {
@@ -36,10 +36,13 @@ const i18nProvider = polyglotI18nProvider(
     ]
 );
 
+const apiUrl = process.env.API_URL || 'http://localhost:9999';
+const restProvider = simpleRestProvider(apiUrl);
+
 const App = () => (
     <Admin
         title=""
-        dataProvider={dataProviderFactory()}
+        dataProvider={restProvider}
         store={localStorageStore(undefined, 'ECommerce')}
         authProvider={AuthProvider}
         dashboard={Dashboard}
