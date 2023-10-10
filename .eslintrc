@@ -28,7 +28,16 @@
             }
         ],
         "no-redeclare": "off",
-        "import/no-anonymous-default-export": "off",
+        "import/no-anonymous-default-export": ["error", {
+            "allowArray": true,
+            "allowArrowFunction": true,
+            "allowAnonymousClass": true,
+            "allowAnonymousFunction": true,
+            "allowCallExpression": true, // The true value here is for backward compatibility
+            "allowNew": true,
+            "allowLiteral": true,
+            "allowObject": true
+        }],
         "@typescript-eslint/no-redeclare": ["error"],
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
@@ -39,6 +48,6 @@
                 "caughtErrorsIgnorePattern": "^_",
                 "ignoreRestSiblings": true
             }
-        ]
+        ],
     }
 }
