@@ -2,23 +2,17 @@
 
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { Admin, Resource, localStorageStore } from 'react-admin';
-// import { Route } from 'react-router';
 
 import AuthProvider from '@/providers/AuthProvider';
-// import categories from '@/components/categories';
 import { Dashboard } from '@/components/dashboard';
 import englishMessages from '@/i18n/en';
-// import invoices from '@/components/invoices';
 import { Layout, Login } from '@/layout';
 import { darkTheme, lightTheme } from '@/layout/themes';
-// import orders from '@/components/orders';
-// import products from '@/components/products';
-// import reviews from '@/components/reviews';
-// import Segments from '@/components/segments/Segments';
 import visitors from '@/components/visitors';
 
 import dynamic from "next/dynamic";
 import simpleRestProvider from "ra-data-simple-rest";
+import { API_URL } from "@/constants"
 
 const i18nProvider = polyglotI18nProvider(
     locale => {
@@ -36,13 +30,13 @@ const i18nProvider = polyglotI18nProvider(
     ]
 );
 
-const apiUrl = process.env.API_URL || 'http://localhost:9999';
-const restProvider = simpleRestProvider(apiUrl);
+import httpClient from '@/providers/HttpClient';
+const dataProvider = simpleRestProvider(API_URL, httpClient);
 
 const App = () => (
     <Admin
         title=""
-        dataProvider={restProvider}
+        dataProvider={dataProvider}
         store={localStorageStore(undefined, 'ECommerce')}
         authProvider={AuthProvider}
         dashboard={Dashboard}
