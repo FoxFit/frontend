@@ -17,14 +17,14 @@ const authProvider: AuthProvider = {
         })
         return fetch(request)
             .then(response => {
-                if (response.status < 200 || response.status >= 300) {
-                    throw new Error(response.statusText);
-                }
+                // if (response.status < 200 || response.status >= 300) {
+                //     throw new Error(response.statusText);
+                // }
                 return response.json();
             })
             .then((response) => {
                 if (response.status !== 'success') {
-                    throw new Error(response.message);
+                    throw new Error(response.message || response.error);
                 }
                 console.log(response.data);
                 localStorage.setItem('token', response.data.access_token);
