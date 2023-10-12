@@ -36,7 +36,7 @@ const VisitorList = () => {
         <List
             filters={isSmall ? visitorFilters : undefined}
             sort={{ field: 'last_seen', order: 'DESC' }}
-            perPage={5}
+            perPage={15}
             aside={<VisitorListAside />}
         >
             {isXsmall ? (
