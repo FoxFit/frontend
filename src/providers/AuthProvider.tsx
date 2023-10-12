@@ -36,8 +36,6 @@ const authProvider: AuthProvider = {
     // When the dataProvider returns an error, check if this is an authentication error.
     checkError: ({ status }) => {
         if (status === 401 || status === 403) {
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
             return Promise.reject();
         }
         return Promise.resolve();

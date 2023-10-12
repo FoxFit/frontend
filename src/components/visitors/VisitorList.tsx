@@ -19,6 +19,7 @@ import MobileGrid from './MobileGrid';
 import VisitorListAside from './VisitorListAside';
 
 const visitorFilters = [
+    <NumberField source="id" />,
     <SearchInput source="q" alwaysOn />,
     <DateInput source="last_seen_gte" />,
     <NullableBooleanInput source="has_ordered" />,
@@ -35,7 +36,7 @@ const VisitorList = () => {
         <List
             filters={isSmall ? visitorFilters : undefined}
             sort={{ field: 'last_seen', order: 'DESC' }}
-            perPage={25}
+            perPage={5}
             aside={<VisitorListAside />}
         >
             {isXsmall ? (
@@ -51,6 +52,7 @@ const VisitorList = () => {
                         },
                     }}
                 >
+                    <NumberField source="id" />
                     <CustomerLinkField />
                     <DateField source="last_seen" />
                     <NumberField
