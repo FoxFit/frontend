@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Card, CardContent } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOnOutlined';
-import MailIcon from '@mui/icons-material/MailOutline';
-import LocalOfferIcon from '@mui/icons-material/LocalOfferOutlined';
+
 import {
     FilterList,
     FilterListItem,
@@ -17,8 +15,6 @@ import {
     startOfMonth,
     subMonths,
 } from 'date-fns';
-
-import segments from '../segments/data';
 
 const Aside = () => (
     <Card
@@ -94,53 +90,6 @@ const Aside = () => (
                         ).toISOString(),
                     }}
                 />
-            </FilterList>
-
-            <FilterList
-                label="resources.customers.filters.has_ordered"
-                icon={<MonetizationOnIcon />}
-            >
-                <FilterListItem
-                    label="ra.boolean.true"
-                    value={{
-                        nb_commands_gte: 1,
-                        nb_commands_lte: undefined,
-                    }}
-                />
-                <FilterListItem
-                    label="ra.boolean.false"
-                    value={{
-                        nb_commands_gte: undefined,
-                        nb_commands_lte: 0,
-                    }}
-                />
-            </FilterList>
-
-            <FilterList
-                label="resources.customers.filters.has_newsletter"
-                icon={<MailIcon />}
-            >
-                <FilterListItem
-                    label="ra.boolean.true"
-                    value={{ has_newsletter: true }}
-                />
-                <FilterListItem
-                    label="ra.boolean.false"
-                    value={{ has_newsletter: false }}
-                />
-            </FilterList>
-
-            <FilterList
-                label="resources.customers.filters.group"
-                icon={<LocalOfferIcon />}
-            >
-                {segments.map(segment => (
-                    <FilterListItem
-                        label={segment.name}
-                        key={segment.id}
-                        value={{ groups: segment.id }}
-                    />
-                ))}
             </FilterList>
         </CardContent>
     </Card>
